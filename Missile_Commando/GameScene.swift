@@ -528,7 +528,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate  {
         pauseTap.addTarget(self, action:#selector(GameScene.tappedView))
         pauseTap.numberOfTouchesRequired = 1
         pauseTap.numberOfTapsRequired = 1
-        self.pauseButton.addGestureRecognizer(pauseTap)
+        //self.pauseButton.addGestureRecognizer(pauseTap)
 
         
     }
