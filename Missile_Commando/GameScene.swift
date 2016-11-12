@@ -51,8 +51,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate  {
     let success2:SKAction = SKAction.playSoundFileNamed("success2.caf", waitForCompletion: false)
     
 
-
-
     
     let playerBase:SKSpriteNode = SKSpriteNode(imageNamed: "playerBase")
     let turret:SKSpriteNode = SKSpriteNode(imageNamed: "turret")
@@ -66,11 +64,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate  {
     let loopingBG2:SKSpriteNode = SKSpriteNode(imageNamed: "stars")
     let moon:SKSpriteNode = SKSpriteNode(imageNamed: "moon")
     
-    let pauseButton:SKSpriteNode = SKSpriteNode(imageNamed: "pauseButton")
-    
-    
-    
     var levelLabel:SKLabelNode = SKLabelNode(fontNamed: "BM germar")
+    
+    var pauseButton:SKLabelNode = SKLabelNode(fontNamed: "BM germar")
     var statsLabel:SKLabelNode = SKLabelNode(fontNamed: "BM germar")
     var scoreLabel:SKLabelNode = SKLabelNode(fontNamed: "BM germar")
     
@@ -78,9 +74,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate  {
     var healthMeter:SKSpriteNode = SKSpriteNode(imageNamed: "healthMeter1")
     
     let tapRec = UITapGestureRecognizer()
-    let pauseTap = UITapGestureRecognizer()
-
-    
     
     let rotateRec = UIPanGestureRecognizer()
     var offset:CGFloat = 0
@@ -521,14 +514,15 @@ class GameScene: SKScene, SKPhysicsContactDelegate  {
     
     func addPauseButton(){
         pauseButton.zPosition = 1000
-        pauseButton.position = CGPoint( x: self.frame.width/2 - 20, y: playerBase.position.y - 18)
-        pauseButton.color = UIColor.white
-        addChild(pauseButton)
+        pauseButton.position = CGPoint( x: self.frame.width/2 - 60, y: playerBase.position.y - 18)
+        pauseButton.horizontalAlignmentMode = .left
+        pauseButton.verticalAlignmentMode = .center
+        pauseButton.fontColor = SKColor.white
+        pauseButton.text = "Pause"
+        pauseButton.fontSize = 20
+       
         
-        pauseTap.addTarget(self, action:#selector(GameScene.tappedView))
-        pauseTap.numberOfTouchesRequired = 1
-        pauseTap.numberOfTapsRequired = 1
-        //self.pauseButton.addGestureRecognizer(pauseTap)
+        addChild(pauseButton)
 
         
     }
@@ -1511,21 +1505,19 @@ class GameScene: SKScene, SKPhysicsContactDelegate  {
         for touch in (touches as Set<UITouch>) {
             let location = touch.location(in: self)
             
-            if (location.x > (screenWidth / 2) * 0.9 && location.y > screenHeight * 0.9) {
             
-                if (self.view?.isPaused == false) {
+            if(pauseButton.contains(location)){
+                if (scene?.view?.isPaused == false) {
                     
-                    self.view?.isPaused = true
+                    scene?.view?.isPaused = true
+                    bgSoundPlayer!.stop()
                 } else {
                     
-                    self.view?.isPaused = false
+                    scene?.view?.isPaused = false
+                    bgSoundPlayer!.play()
                 }
-                
             }
         }
-        
-        
-        
     }
     
     
@@ -1601,6 +1593,4 @@ class GameScene: SKScene, SKPhysicsContactDelegate  {
         }
         
     }
-    
-       
 }
