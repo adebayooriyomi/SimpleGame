@@ -1602,23 +1602,5 @@ class GameScene: SKScene, SKPhysicsContactDelegate  {
         
     }
     
-    func touchesBegan(touches: NSSet!, withEvent event: UIEvent!){
-        var touch:UITouch = touches.anyObject() as! UITouch
-        //pauseTap.text = "Pause"
-        //pauseTap.fontSize = 50
-        pauseButton.position = CGPoint(self.frame.size.width/2, self.frame.size.height/2)
-        
-        /* bouton play/pause */
-        
-        var locationPause: CGPoint = touch.locationInNode(self)
-        if self.nodeAtPoint(locationPause) == self.pause
-        {
-            addChild(pauseText) // add the text
-            pause.removeFromParent ()  // to avoid error when you touch again
-            self.runAction (SKAction.runBlock(self.pauseGame))
-        }
-        
-    }
-    
-    
+       
 }
